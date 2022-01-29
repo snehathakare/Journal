@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Journal</title>
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <%- include('partials/header'); -%>
+    <div class="main">
+      <h1>Compose</h1>
+      <form method="POST" action="/">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="add new gratitude"
+          aria-describedby="basic-addon1"
+        />
+        <button type="submit" class="btn btn-outline-secondary">Publish</button>
+      </form>
+      <span><%= startingContent %></span>
+      <div class="mb-3">
+        <input
+          type="fname"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="First Name"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Email Address"
+        />
+      </div>
+      <button type="submit" class="btn btn-dark">Subscribe</button>
+    </div>
+
+    <%- include('partials/footer'); -%>
+  </body>
+</html>
