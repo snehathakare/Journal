@@ -8,13 +8,27 @@
     <%- include('partials/header'); -%>
     <div class="main">
       <h1>Compose</h1>
-      <form method="POST" action="/">
+      <form method="POST" action="/compose">
+        <label for="exampleFormControlTextarea1" class="form-label"
+          >Title</label
+        >
         <input
           type="text"
           class="form-control"
-          placeholder="add new gratitude"
+          name="postTitle"
           aria-describedby="basic-addon1"
         />
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Post</label
+          >
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            name="postBody"
+          ></textarea>
+        </div>
         <button type="submit" class="btn btn-outline-secondary">Publish</button>
       </form>
       <span><%= startingContent %></span>

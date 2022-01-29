@@ -9,6 +9,14 @@
     <div class="main">
       <h1>Daily Gratitude</h1>
       <p><i><%= startingContent %></i></p>
+      <% posts.forEach(function(post){ %>
+      <ul>
+        <li>
+          <h5><%= post.title %></h5>
+          <p><%= post.content %></p>
+        </li>
+      </ul>
+      <% }) %>
     </div>
 
     <%- include('partials/footer'); -%>
