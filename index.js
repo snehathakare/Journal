@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 let ejs = require('ejs');
+var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
@@ -32,6 +33,16 @@ app.post("/compose", (req, res) => {
     }
     post.push(newPost)
     res.redirect("/")
+})
+app.get("/posts/:postName", (req, res) => {
+    const requestedTitle = _.lowerCase(req.params.postName)
+    console.log(requestedTitle)
+    post.forEach(function (post) {
+        const storedtitle = _.lowerCase(post.title)
+        if (storedtitle === requestedTitle)
+            res.render("posts", { title: post.title, content: post.content })
+    })
+
 })
 
 app.listen(3000)
