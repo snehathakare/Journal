@@ -5,9 +5,20 @@ let ejs = require('ejs');
 var _ = require('lodash');
 const { truncate } = require("lodash");
 
+//connect datbase
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/blogPostDB', { useNewUrlParser: true });
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
 app.use(express.static("public"))
+
+const blogPostSchema = {
+    title: String,
+    content: String
+}
+
+const blogPost = mongoose.model("blogPost", blogPostSchema)
 
 var aboutContent = "You can achieve more with less. The Five Minute Journal to bring gratitude into your life. This will help you seamlessly create positive habits without investing years in experimenting and research to achieve the same results."
 var contactContent = "Email us at abc@xyz.com"
