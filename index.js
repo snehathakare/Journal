@@ -24,10 +24,13 @@ var aboutContent = "You can achieve more with less. The Five Minute Journal to b
 var contactContent = "Email us at abc@xyz.com"
 const homeContent = "'Become everything that one is capable of becoming.' -ABRAHAM MASLOW"
 const composeContent = "A weekly boost of inspiration sent to your inbox. Join 190,000+ people who receive Intelligent Change Weekly–our curated newsletter of personal development tips on happiness, productivity, relationships, and more."
-let post = [{ title: "first", content: "New day new changes" }]
+let post = []
 
 app.get("/", (req, res) => {
-    res.render("home", { startingContent: homeContent, posts: post })
+    blogPost.find({}, function (err, foundPosts) {
+        res.render("home", { startingContent: homeContent, posts: foundPosts })
+    })
+
 })
 app.get("/about", (req, res) => {
     res.render("about", { startingContent: aboutContent })
@@ -39,20 +42,21 @@ app.get("/compose", (req, res) => {
     res.render("compose", { startingContent: composeContent })
 })
 app.post("/compose", (req, res) => {
-    var newPost = {
+    const post = new blogPost({
         title: req.body.postTitle,
         content: req.body.postBody
-    }
-    post.push(newPost)
-    res.redirect("/")
+    })
+    post.save(function (err) {
+        if (!err) {
+            res.redirect("/");
+        }
+    })
 })
-app.get("/posts/:postName", (req, res) => {
-    const requestedTitle = _.lowerCase(req.params.postName)
+app.get("/posts/:postId", (req, res) => {
+    const requestedPostId = req.params.postId
 
-    post.forEach(function (post) {
-        const storedtitle = _.lowerCase(post.title)
-        if (storedtitle === requestedTitle)
-            res.render("posts", { title: post.title, content: post.content })
+    blogPost.findOne({ _id: requestedPostId }, function (err, post) {
+        res.render("posts", { title: post.title, content: post.content })
     })
 
 })
